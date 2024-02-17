@@ -1,0 +1,34 @@
+{
+  "surveyId": "uuid",
+  "surveyRequestId": "uuid",
+  "surveyCode": "uuid",
+  "surveySubject": "String",
+  "surveyTimeStamp": "2024-12-11T15:30:00Z",
+
+  "question": {
+    "id": "uuid",
+    "name": "String",
+    "questionCode": "String",
+    "type": "String",
+    "detractorScaleMinIncluded": 0,
+    "detractorScaleMaxIncluded": 6,
+    "detractorScaleStep": 1,
+    "passiveScaleMinIncluded": 7,
+    "passiveScaleMaxIncluded": 8,
+    "passiveScaleStep": 1,
+    "promoterScaleMinIncluded": 9,
+    "promoterScaleMaxIncluded": 10,
+    "promoterScaleStep": 1
+  },
+
+  "participant": {
+    "id": "uuid",
+    "phoneNumber": "String"
+  },
+
+  "answer": {
+    "id": "uuid",
+    "text": "String",
+    "timestamp": "2024-12-11T15:30:00Z"
+  }
+}

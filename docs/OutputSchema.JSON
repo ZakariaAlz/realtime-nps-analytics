@@ -1,0 +1,62 @@
+{
+  "surveyId": "uuid",
+  "surveyRequestId": "uuid",
+  "surveySubject": "String",
+  "surveyCode": "String",
+  "surveyTimeStamp": "2024-12-11T15:30:00Z",
+
+  "question": {
+    "id": "uuid",
+    "name": "String",
+    "code": "String",
+    "type": "String",
+    "detractorScaleMinIncluded": 0,
+    "detractorScaleMaxIncluded": 6,
+    "detractorScaleStep": 1,
+    "passiveScaleMinIncluded": 7,
+    "passiveScaleMaxIncluded": 8,
+    "passiveScaleStep": 1,
+    "promoterScaleMinIncluded": 9,
+    "promoterScaleMaxIncluded": 10,
+    "promoterScaleStep": 1
+  },
+
+  "participant": {
+    "id": "uuid",
+    "phoneNumber": "String"
+  },
+
+  "state": {
+    "isDetractor": null,
+    "isPromoter": null,
+    "isPassive": null,
+    "isNps": null,
+    "isValidAnswer": null,
+    "isOutOfScope": null,
+    "isUnclear": null,
+    "isGibberish": null,
+    "isOffensive": null
+  },
+
+  "answer": {
+    "id": "uuid",
+    "text": "String",
+    "timestamp": "2024  -12-11T15:30:00Z"
+  },
+
+  "error": {
+    "code":"String",
+    "message":"String",
+    "errorType": "Unclear/NotNPSAnswer/Gibberish/OutOfScope/Offensive/none"
+  },
+
+  "metrics": {
+      "promotersCount": 0,
+      "detractorsCount": 0,
+      "passivesCount": 0,
+      "validResponsesCount": 0,
+      "invalidResponsesCount": 0
+    }
+
+}
+
