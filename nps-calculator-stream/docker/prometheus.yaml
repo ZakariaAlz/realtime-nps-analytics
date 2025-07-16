@@ -1,0 +1,67 @@
+volumes:
+  vprometheus:
+    name: vprometheus
+
+networks:
+  default:
+    name: confluent-net
+    external: false
+
+services:
+  prometheus:
+    container_name: prometheus
+    hostname: prometheus
+    image: bitnami/prometheus:2
+    ports:
+      - '9090:9090'
+    networks:
+      default:
+    volumes:
+      - vprometheus:/opt/bitnami/prometheus/data
+      - ./config/prometheus.yaml:/opt/bitnami/prometheus/conf/prometheus.yml
+    restart: 'no'
+
+  kafka-exporter:
+    container_name: kafka-exporter
+    hostname: kafka-exporter
+    image: bitnami/kafka-exporter:1
+    ports:
+      - '9308:9308'
+    networks:
+      default:
+    command:
+      - --kafka.server=broker1:29092
+      - --kafka.server=broker2:29093
+      - --kafka.server=broker3:29094
+      - --zookeeper.server=zookeeper:2181
+    restart: 'no'
+
+  jmx-exporter-broker1:
+    container_name: jmx-exporter-broker1
+    hostname: jmx-exporter-broker1
+    image: bitnami/jmx-exporter:0.20.0
+    networks:
+      default:
+    volumes:
+      - ./config/jmx-exporter-broker1.yml:/opt/bitnami/jmx-exporter/example_configs/httpserver_sample_config.yml
+    restart: 'no'
+
+  jmx-exporter-broker2:
+    container_name: jmx-exporter-broker2
+    hostname: jmx-exporter-broker2
+    image: bitnami/jmx-exporter:0.20.0
+    networks:
+      default:
+    volumes:
+      - ./config/jmx-exporter-broker2.yml:/opt/bitnami/jmx-exporter/example_configs/httpserver_sample_config.yml
+    restart: 'no'
+
+  jmx-exporter-broker3:
+    container_name: jmx-exporter-broker3
+    hostname: jmx-exporter-broker3
+    image: bitnami/jmx-exporter:0.20.0
+    networks:
+      default:
+    volumes:
+      - ./config/jmx-exporter-broker3.yml:/opt/bitnami/jmx-exporter/example_configs/httpserver_sample_config.yml
+    restart: 'no'
