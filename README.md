@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Real-Time NPS Analysis Solution 🚀
 
 Dive into the heart of customer satisfaction with our Real-Time Net Promoter Score (NPS) Analysis Solution. Developed at Telecom Djezzy, this project brings the cutting edge of Data/Event Stream Processing to your fingertips, enabling actionable insights from customer feedback, instantly.
@@ -100,3 +101,7 @@ Your contributions make our project grow and improve. Whether it's bug reports, 
 Got feedback? I'd love to hear it! Please create an issue for any suggestions or feedback you have.
  
 
+=======
+# realtime-nps-analytics
+Hey there! 👋 This was my very first data engineering project, built with my good friend Aymen Benniou—who we lost last year. Prayers for him. 🙏  We set up Kafka to stream customer feedback, used Flink to crunch the numbers, and made a simple dashboard so you can see your NPS live.  Give it a spin and let me know what you think! 😊
+>>>>>>> 9519e2b (Initial commit)
