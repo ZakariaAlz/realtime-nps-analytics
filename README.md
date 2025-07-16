@@ -1,7 +1,13 @@
-<<<<<<< HEAD
+<!--
+  📄 Licensed under the Apache License, Version 2.0.
+  See LICENSE file for details.
+-->
+
 # Real-Time NPS Analysis Solution 🚀
 
-Dive into the heart of customer satisfaction with our Real-Time Net Promoter Score (NPS) Analysis Solution. Developed at Telecom Djezzy, this project brings the cutting edge of Data/Event Stream Processing to your fingertips, enabling actionable insights from customer feedback, instantly.
+This project streams customer feedback, calculates Net Promoter Score (NPS) on the fly, and shows it in a live dashboard. It was my first data-engineering adventure, built with my friend Aymen Benniou—may he rest in peace. We used Apache Kafka to collect feedback events, Apache Flink to process them, and Grafana to display the results. Everything runs in containers so you can try it on your machine in minutes.
+
+---
 
 ## 📖 Overview
 
@@ -24,11 +30,25 @@ Our solution is powered by a robust stack designed for efficiency and scalabilit
 | AKHQ            | A Kafka GUI for exploring topics, viewing data, and managing configurations easily.           |
 | IntelliJ IDEA   | Recommended IDE for developing and managing the project with efficient Java support.         |
 
+## 📖 What Is This?
+
+A plug-and-play pipeline that:
+
+1. **Streams** raw customer feedback via **Apache Kafka**  
+2. **Processes** events in real-time with **Apache Flink**  
+3. **Exposes** metrics to **Prometheus**  
+4. **Visualizes** NPS and trends in **Grafana**  
+5. **Manages** everything with **Docker**/**Podman**
+
+This is Perfect if you want hands-on experience with modern streaming and monitoring tools as somebody who's just starting to learn Data Stream Processing.
+
 ## 🚀 Getting Started
 
-Embark on your journey to real-time analytics by setting up the project locally:
+So First, Start exploring by setting up the project locally:
 
 ### Prerequisites
+
+You're gonna need to install these dependencies, you could work with Docker/Podman Desktop but you could also work under WSL2.
 
 - **Docker/Podman:** Follow the official guides to install [Docker](https://docs.docker.com/get-docker/) or [Podman](https://podman.io/getting-started/installation) on your system.
 - **Java:** Ensure you have Java installed for backend development. [Download Java](https://www.oracle.com/java/technologies/javase-jdk11-downloads.html).
@@ -39,31 +59,93 @@ Embark on your journey to real-time analytics by setting up the project locally:
 
 1. **Clone this repository**
 
-git clone https://github.com/yourgithubusername/yourrepositoryname.git
-cd yourrepositoryname
+```bash
+git clone https://github.com/ZakariaAlz/realtime-nps-analytics.git
+cd realtime-nps-analytics
+```
 
-2. **Install Python dependencies** 
-
+2. **Install Python dependencies**
+   
+```python
 pip install -r requirements.txt
+```
 
-3. **Launch Docker Containers** 
+3. **Launch Docker Containers**
+   
+Now you’re ready to launch the full stack.
 
-Ensure Docker Desktop/ Podman is running and execute:
+You don’t need to merge all of those files by hand — Docker Compose (and Podman Compose) will happily load as many -f files as you give it. From the folder where all your YAML lives (e.g. nps-calculator-stream/docker), just run : 
 
-docker-compose up -d  # For Docker users
-# or
-podman-compose up -d  # For Podman users
+```bash
+docker-compose \
+  -f akhq.yaml \
+  -f cp-kafka-brokers.yaml \
+  -f cp-zookeeper.yaml \
+  -f flink.yaml \
+  -f grafana.yaml \
+  -f prometheus.yaml \
+  up -d
+```
 
+Or, if you prefer working with Podman:
 
-This starts Kafka, Flink, Prometheus, Grafana, and AKHQ, etc.. 
+```bash
+podman-compose \
+  -f akhq.yaml \
+  -f cp-kafka-brokers.yaml \
+  -f cp-zookeeper.yaml \
+  -f flink.yaml \
+  -f grafana.yaml \
+  -f prometheus.yaml \
+  up -d
+```
+
+What this does:
+
+-f file1.yaml -f file2.yaml … lets Compose merge all those service definitions into one virtual stack
+
+up -d will start every container in detached mode
+
+After you run that, check with:
+
+```bash
+docker-compose ps   # or podman-compose ps
+```
+
+You’ll see Kafka, ZK, AKHQ, Flink, Prometheus and Grafana all up and running.
 
 4. **Generate Data**
+   
+Next, generate some sample feedback data. Move into the data-gen directory, install the Python requirements, and run the generator script:
 
-Kickstart the data generation:
-
+```bash
+cd data-gen
+pip install -r requirements.txt
 python data-gen.py
+cd ..
+```
 
-## 📊 Visualizing the Data
+5.  **📊 Visualizing the Data**
+
+## 📂 Project Structure
+.
+├── data-gen/                  # Python scripts to generate fake feedback
+├── nps-calculator-stream/     # Flink job & Kafka connectors
+│   ├── docker/                # Compose files for Kafka, ZK, Prometheus…
+│   ├── src/                   # Java source code
+│   └── pom.xml
+├── docker-compose.yml         # Brings up Kafka, Flink, Prometheus, Grafana
+└── README.md
+
+Give the services a moment to start. When they’re ready, open your browser:
+
+- Prometheus is available at http://localhost:9090
+
+- Grafana lives at http://localhost:3000 (use admin/admin to log in)
+
+- AKHQ (the Kafka UI) is at http://localhost:8080
+
+- Head to Grafana and you’ll see your live NPS dashboard updating in real time.
 
 - Prometheus Monitoring:
 
@@ -76,6 +158,20 @@ Visit http://localhost:3000 to explore the real-time analytics dashboards. Defau
 - AKHQ Interface:
 
 Explore your Kafka clusters by navigating to http://localhost:8080. AKHQ provides a user-friendly GUI for your Kafka environment, allowing you to monitor topics, view data, and manage your setup efficiently.
+
+## How It Works
+Under the hood, Kafka gathers every piece of customer feedback as an event. Flink consumes those events, groups them into short time windows, and calculates the NPS score for each window. Flink then pushes metrics out to Prometheus, which stores time-series data. Grafana queries Prometheus to show you trends, scores, and charts at a glance. If you’re curious, all service definitions live in docker-compose.yml, and the Flink job code sits under nps-calculator-stream.
+
+## Project Layout
+
+- data-gen/: A small Python script that produces fake feedback messages.
+
+- nps-calculator-stream/: Java code for the Flink job, along with Docker and Maven setup.
+
+- docker-compose.yml: Brings up Kafka, Zookeeper, Flink, Prometheus, Grafana, and AKHQ.
+
+- README.md: That’s this file—you’re reading it now!
+
 
 ## 🌐 Real-Time Dashboard
 The heart of our solution is the real-time dashboard powered by Grafana, providing a live view of NPS scores and customer feedback trends. This dashboard is designed for immediate insight into customer satisfaction levels, enabling quick decision-making and proactive measures to improve service quality.
@@ -95,13 +191,19 @@ Here's an overview of our Dashboard in Grafana :
 Delve deeper into each technology with their official documentation, linked in the Technologies & Tools section.
 
 ## 🤝 Contributing
-Your contributions make our project grow and improve. Whether it's bug reports, feature suggestions, or code contributions, we welcome your input wholeheartedly.
+
+Feel free to fork the repo and add your ideas. If you fix a bug or add a feature, send a pull request and we’ll review it together. Every contribution helps make this project better—and helps others learn modern streaming techniques.
+
+1 - Create a feature branch (git checkout -b feature/your-feature)
+
+2 - Commit your changes (git commit -m "Add awesome feature")
+
+3 - Push to your fork (git push origin feature/my-feature)
+
+4 - Open a Pull Request and I’ll review it!
 
 ## 💬 Feedback
-Got feedback? I'd love to hear it! Please create an issue for any suggestions or feedback you have.
- 
+Raised an issue? Got ideas? I’m all ears—drop a comment in Issues or hop into Discussions.
 
-=======
-# realtime-nps-analytics
-Hey there! 👋 This was my very first data engineering project, built with my good friend Aymen Benniou—who we lost last year. Prayers for him. 🙏  We set up Kafka to stream customer feedback, used Flink to crunch the numbers, and made a simple dashboard so you can see your NPS live.  Give it a spin and let me know what you think! 😊
->>>>>>> 9519e2b (Initial commit)
+Made with ❤️ by Zakaria Alz. If you find this useful, Please, feel free to ⭐ this repo if it helped you!
+
