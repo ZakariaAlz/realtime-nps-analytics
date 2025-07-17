@@ -1,0 +1,40 @@
+version: '3.8'
+
+networks:
+  default:
+    name: confluent-net
+    external: true
+
+services:
+  broker1:
+    image: confluentinc/cp-enterprise-kafka:7.4.0
+    hostname: broker1
+    container_name: broker1
+    ports:
+      - 9092:9092
+      - 9101:9101
+    env_file:
+      - envs/broker1.env
+    restart: 'no'
+
+  broker2:
+    image: confluentinc/cp-enterprise-kafka:7.4.0
+    hostname: broker2
+    container_name: broker2
+    ports:
+      - 9093:9093
+      - 9102:9101
+    env_file:
+      - envs/broker2.env
+    restart: 'no'
+  
+  broker3:
+    image: confluentinc/cp-enterprise-kafka:7.4.0
+    hostname: broker3
+    container_name: broker3
+    ports:
+      - 9094:9094
+      - 9103:9101
+    env_file:
+      - envs/broker3.env
+    restart: 'no'

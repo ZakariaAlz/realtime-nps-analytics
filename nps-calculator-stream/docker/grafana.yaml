@@ -1,0 +1,37 @@
+version: '3.8'
+
+volumes:
+  vmysql:
+    name: vmysql
+
+networks:
+  default:
+    name: confluent-net
+    external: true
+
+services:
+  mysql:
+    container_name: mysql
+    image: bitnami/mysql:8.0
+    env_file:
+      - envs/mysql.env
+    networks:
+      default:
+    volumes:
+      - vmysql:/bitnami/mysql/ 
+    restart: 'no'
+
+
+  grafana:
+    container_name: grafana
+    hostname: grafana
+    image: bitnami/grafana:10
+    env_file:
+      - envs/grafana.env
+    networks:
+      default:
+    ports:
+      - '3000:3000'
+    depends_on:
+      - mysql
+    restart: 'no'

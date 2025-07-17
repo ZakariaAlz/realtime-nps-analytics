@@ -1,0 +1,5 @@
+on terminal run this first,
+
+pip install -r requirements.txt
+
+and then python data-gen.py

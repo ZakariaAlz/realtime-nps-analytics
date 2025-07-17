@@ -1,0 +1,31 @@
+{
+  "surveyId": "cbe7ff1f-ece5-413b-8402-94ff909e4d47",
+  "surveyRequestId": "a766e534-cf6f-4fa7-afef-9e255861ce03",
+  "surveyCode": "ebf36711-8734-459c-94d7-d7f1465dd111",
+  "surveySubject": "Sample Survey Subject",
+  "surveyTimestamp": "2024-02-08T05:41:35.797132100",
+  "question": {
+    "id": "deb3c74a-b059-4e85-a754-d6caee92164b",
+    "name": "Sample Question Name",
+    "questionCode": "7bad89d0-10c2-43b8-98a5-c8265ab3a2ca",
+    "type": "qcm",
+    "detractorScaleMinIncluded": 0,
+    "detractorScaleMaxIncluded": 6,
+    "detractorScaleStep": 1,
+    "passiveScaleMinIncluded": 7,
+    "passiveScaleMaxIncluded": 8,
+    "passiveScaleStep": 1,
+    "promoterScaleMinIncluded": 9,
+    "promoterScaleMaxIncluded": 10,
+    "promoterScaleStep": 1
+  },
+  "participant": {
+    "id": "36ed6eca-404e-43eb-9c96-6f1dd409f0fa",
+    "phoneNumber": "07123456789"
+  },
+  "answer": {
+    "id": "8",
+    "text": "Sample Answer",
+    "timestamp": "2024-02-08T05:41:35.800131300"
+  }
+}
