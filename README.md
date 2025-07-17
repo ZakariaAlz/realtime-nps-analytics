@@ -3,8 +3,6 @@
   See LICENSE file for details.
 -->
 
-![Project Banner](assets/header.png)
-
 # Real-Time NPS Analysis Solution 🚀
 
 Hey there! 👋 This was my very first data engineering project, It streams customer feedback, calculates Net Promoter Score (NPS) on the fly, and shows it in a live dashboard. It was my first data-engineering adventure, built with my friend Aymen Benniou—may he rest in peace. We used Apache Kafka to collect feedback events, Apache Flink to process them, and Grafana to display the results. Everything runs in containers so you can try it on your machine in minutes. Give it a try and let me know what you think! 😊
