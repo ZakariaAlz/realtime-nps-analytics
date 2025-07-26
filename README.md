@@ -104,6 +104,8 @@ podman-compose \
   up -d
 ```
 
+![alt text](image-2.png)
+
 What this does:
 
 -f file1.yaml -f file2.yaml … lets Compose merge all those service definitions into one virtual stack
@@ -118,7 +120,9 @@ docker-compose ps   # or podman-compose ps
 
 You’ll see Kafka, ZK, AKHQ, Flink, Prometheus and Grafana all up and running.
 
-4. **Generate Data**
+![alt text](image-4.png)
+
+1. **Generate Data**
    
 Next, generate some sample feedback data. Move into the data-gen directory, install the Python requirements, and run the generator script:
 
@@ -149,12 +153,18 @@ Give the services a moment to start. When they’re ready, open your browser:
 
 Explore your Kafka clusters by navigating to http://localhost:8080. AKHQ provides a user-friendly GUI for your Kafka environment, allowing you to monitor topics, view data, and manage your setup efficiently.
 
+![alt text](image-5.png)
+
 ## How It Works
 Under the hood, Kafka gathers every piece of customer feedback as an event. Flink consumes those events, groups them into short time windows, and calculates the NPS score for each window. Flink then pushes metrics out to Prometheus, which stores time-series data. Grafana queries Prometheus to show you trends, scores, and charts at a glance. If you’re curious, all service definitions live in docker-compose.yml, and the Flink job code sits under nps-calculator-stream.
 
 ## Project Layout
 
 - data-gen/: A small Python script that produces fake feedback messages.
+
+![alt text](image.png)
+
+![alt text](image-1.png)
 
 - nps-calculator-stream/: Java code for the Flink job, along with Docker and Maven setup.
 
@@ -172,10 +182,9 @@ Navigate to http://localhost:3000.
 Log in with the default or your customized credentials.
 Explore the pre-configured NPS analytics panels or create your own for tailored insights.
 
-Here's an overview of our Dashboard in Grafana : 
-<p align="center">
-<img src="https://github.com/Zakaria100000/Real-time-Data-Streaming-Application-for-Customer-Satisfaction/assets/93408719/0c30f75b-0c68-4bee-a3bb-e1cc4e625e3e">
-</p>
+Here's an overview of our Dashboard in Grafana :
+
+![alt text](image-6.png)
 
 ## 📘 Further Documentation
 Delve deeper into each technology with their official documentation, linked in the Technologies & Tools section.
