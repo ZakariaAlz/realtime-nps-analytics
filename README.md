@@ -2,6 +2,7 @@
   📄 Licensed under the Apache License, Version 2.0.
   See LICENSE file for details.
 -->
+![Header](assets/header.png)
 
 # Real-Time NPS Analysis Solution 🚀
 
@@ -101,8 +102,7 @@ podman-compose \
   up -d
 ```
 
-![alt text](image-2.png)
-
+![Podman PS](assets/image-2.png)
 What this does:
 
 -f file1.yaml -f file2.yaml … lets Compose merge all those service definitions into one virtual stack
@@ -117,7 +117,7 @@ docker-compose ps   # or podman-compose ps
 
 You’ll see Kafka, ZK, AKHQ, Flink, Prometheus and Grafana all up and running.
 
-![alt text](image-4.png)
+![Podman Desktop](assets/image-4.png)
 
 1. **Generate Data**
    
@@ -150,7 +150,7 @@ Give the services a moment to start. When they’re ready, open your browser:
 
 Explore your Kafka clusters by navigating to http://localhost:8080. AKHQ provides a user-friendly GUI for your Kafka environment, allowing you to monitor topics, view data, and manage your setup efficiently.
 
-![alt text](image-5.png)
+![AKHQ Kafka UI](assets/image-5.png)
 
 ## How It Works
 Under the hood, Kafka gathers every piece of customer feedback as an event. Flink consumes those events, groups them into short time windows, and calculates the NPS score for each window. Flink then pushes metrics out to Prometheus, which stores time-series data. Grafana queries Prometheus to show you trends, scores, and charts at a glance. If you’re curious, all service definitions live in docker-compose.yml, and the Flink job code sits under nps-calculator-stream.
@@ -159,9 +159,9 @@ Under the hood, Kafka gathers every piece of customer feedback as an event. Flin
 
 - data-gen/: A small Python script that produces fake feedback messages.
 
-![alt text](image.png)
+![Data Generation](assets/image.png)
 
-![alt text](image-1.png)
+![General Architecture](assets/image-1.png)
 
 - nps-calculator-stream/: Java code for the Flink job, along with Docker and Maven setup.
 
@@ -181,7 +181,7 @@ Explore the pre-configured NPS analytics panels or create your own for tailored 
 
 Here's an overview of our Dashboard in Grafana :
 
-![alt text](image-6.png)
+![Grafana Dashboard](assets/image-6.png)
 
 ## 📘 Further Documentation
 Delve deeper into each technology with their official documentation, linked in the Technologies & Tools section.
